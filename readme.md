@@ -4,6 +4,8 @@
 ![Python](https://img.shields.io/pypi/pyversions/alogin)
 ![License](https://img.shields.io/github/license/adeep13/alogin)
 [![PyPI Downloads](https://static.pepy.tech/personalized-badge/alogin?period=total&units=INTERNATIONAL_SYSTEM&left_color=BLACK&right_color=GREEN&left_text=downloads)](https://pepy.tech/projects/alogin)
+
+
 ALogin is a lightweight CLI-based authentication helper for Python.
 It provides simple account creation and login functionality for small projects, prototypes, and hackathon demos.
 
@@ -88,3 +90,4 @@ Initial authentication system release with:
 ## License
 
 MIT License
+
