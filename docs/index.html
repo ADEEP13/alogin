@@ -1,1 +1,1022 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ALogin Documentation</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Roboto+Mono:wght@400;500&display=swap" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f5f5f5;
+      --bg-tertiary: #eeeeee;
+      --text-primary: #212121;
+      --text-secondary: #616161;
+      --text-tertiary: #9e9e9e;
+      --border: #e0e0e0;
+      --accent: #4051b5;
+      --accent-light: #e8eaf6;
+      --accent-hover: #3949ab;
+      --nav-width: 240px;
+      --toc-width: 180px;
+      --topbar-height: 48px;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      font-size: 14px;
+      color: var(--text-primary);
+      background: var(--bg-secondary);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ── Sidebar nav ── */
+    .mk-nav {
+      width: var(--nav-width);
+      flex-shrink: 0;
+      background: var(--bg-primary);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      overflow-y: auto;
+      z-index: 100;
+    }
+
+    .mk-nav-logo {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mk-nav-logo i {
+      font-size: 22px;
+      color: var(--accent);
+    }
+
+    .mk-nav-logo-text .title {
+      font-weight: 500;
+      font-size: 15px;
+      color: var(--text-primary);
+    }
+
+    .mk-nav-logo-text .version {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      margin-top: 1px;
+    }
+
+    .mk-nav-section {
+      padding: 14px 16px 4px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+    }
+
+    .mk-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 7px 14px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      border-radius: 5px;
+      margin: 1px 6px;
+      text-decoration: none;
+      transition: background 0.12s, color 0.12s;
+    }
+
+    .mk-nav-item i {
+      font-size: 16px;
+    }
+
+    .mk-nav-item:hover {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+    }
+
+    .mk-nav-item.active {
+      background: var(--accent-light);
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* ── Main layout ── */
+    .mk-main {
+      margin-left: var(--nav-width);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ── Topbar ── */
+    .mk-topbar {
+      position: sticky;
+      top: 0;
+      background: var(--bg-primary);
+      border-bottom: 1px solid var(--border);
+      height: var(--topbar-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 50;
+    }
+
+    .mk-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .mk-breadcrumb .sep {
+      color: var(--text-tertiary);
+      font-size: 11px;
+    }
+
+    .mk-breadcrumb .current {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .mk-topbar-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .mk-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-family: 'Roboto', sans-serif;
+      padding: 5px 12px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.12s, color 0.12s;
+    }
+
+    .mk-btn:hover {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+    }
+
+    .mk-btn.primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .mk-btn.primary:hover {
+      background: var(--accent-hover);
+    }
+
+    /* ── Content area ── */
+    .mk-body {
+      display: flex;
+      flex: 1;
+    }
+
+    .mk-article {
+      flex: 1;
+      padding: 36px 40px;
+      max-width: 780px;
+      min-width: 0;
+    }
+
+    /* ── TOC ── */
+    .mk-toc {
+      width: var(--toc-width);
+      flex-shrink: 0;
+      padding: 24px 16px;
+      position: sticky;
+      top: var(--topbar-height);
+      height: calc(100vh - var(--topbar-height));
+      overflow-y: auto;
+      border-left: 1px solid var(--border);
+      background: var(--bg-primary);
+    }
+
+    .mk-toc-title {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 8px;
+    }
+
+    .mk-toc-link {
+      display: block;
+      font-size: 12px;
+      color: var(--text-secondary);
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      line-height: 1.4;
+      margin-bottom: 2px;
+      transition: background 0.1s, color 0.1s;
+    }
+
+    .mk-toc-link:hover,
+    .mk-toc-link.active {
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+
+    /* ── Page content ── */
+    .page { display: none; }
+    .page.visible { display: block; }
+
+    .mk-page-title {
+      font-size: 26px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .mk-page-sub {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 22px;
+      line-height: 1.6;
+    }
+
+    .mk-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 24px 0;
+    }
+
+    .mk-badges {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .mk-badge {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    .mk-badge.blue  { background: #e3f2fd; color: #1565c0; }
+    .mk-badge.green { background: #e8f5e9; color: #2e7d32; }
+    .mk-badge.amber { background: #fff8e1; color: #e65100; }
+
+    /* ── Section headings ── */
+    .mk-h2 {
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin: 28px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-left: 12px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .mk-h2 i {
+      color: var(--accent);
+      font-size: 17px;
+    }
+
+    .mk-p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+
+    code {
+      background: var(--bg-tertiary);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 12px;
+      color: var(--text-primary);
+    }
+
+    /* ── Admonitions ── */
+    .mk-admonition {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 13px 16px;
+      border-radius: 6px;
+      margin: 16px 0;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .mk-admonition i {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .mk-admonition.info {
+      background: var(--accent-light);
+      border-left: 3px solid var(--accent);
+    }
+
+    .mk-admonition.info i { color: var(--accent); }
+
+    .mk-admonition.tip {
+      background: #e8f5e9;
+      border-left: 3px solid #2e7d32;
+    }
+
+    .mk-admonition.tip i { color: #2e7d32; }
+
+    .mk-admonition.warning {
+      background: #fff8e1;
+      border-left: 3px solid #f57c00;
+    }
+
+    .mk-admonition.warning i { color: #f57c00; }
+
+    /* ── Code blocks ── */
+    .mk-code-block {
+      border-radius: 7px;
+      overflow: hidden;
+      margin: 14px 0;
+      border: 1px solid #37474f;
+    }
+
+    .mk-code-header {
+      background: #37474f;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 14px;
+    }
+
+    .mk-code-lang {
+      font-size: 11px;
+      color: #90a4ae;
+      font-family: 'Roboto Mono', monospace;
+    }
+
+    .mk-copy-btn {
+      background: transparent;
+      border: none;
+      color: #90a4ae;
+      cursor: pointer;
+      font-size: 12px;
+      font-family: 'Roboto', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 0;
+      transition: color 0.12s;
+    }
+
+    .mk-copy-btn:hover { color: #eceff1; }
+    .mk-copy-btn i { font-size: 14px; }
+
+    .mk-code-body {
+      background: #263238;
+      padding: 16px 18px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #eceff1;
+      overflow-x: auto;
+      margin: 0;
+      white-space: pre;
+    }
+
+    .kw  { color: #80cbc4; }
+    .fn  { color: #82b1ff; }
+    .str { color: #c3e88d; }
+    .cm  { color: #546e7a; }
+    .num { color: #f78c6c; }
+
+    /* ── Feature grid ── */
+    .mk-feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .mk-feature-card {
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .mk-feature-card i {
+      color: var(--accent);
+      font-size: 20px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .mk-feature-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 3px;
+    }
+
+    .mk-feature-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ── API ref blocks ── */
+    .mk-api-block {
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      overflow: hidden;
+      margin: 14px 0;
+    }
+
+    .mk-api-header {
+      background: var(--bg-secondary);
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      font-family: 'Roboto Mono', monospace;
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .mk-api-body {
+      padding: 14px 16px;
+    }
+
+    .mk-api-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    .mk-api-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .mk-api-table th {
+      text-align: left;
+      padding: 6px 10px;
+      background: var(--bg-secondary);
+      color: var(--text-tertiary);
+      font-weight: 500;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mk-api-table td {
+      padding: 7px 10px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+      vertical-align: top;
+    }
+
+    .mk-api-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .mk-api-table td:first-child {
+      font-family: 'Roboto Mono', monospace;
+      color: var(--accent);
+    }
+
+    /* ── Footer nav ── */
+    .mk-footer-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .mk-nav-prev,
+    .mk-nav-next {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--accent);
+      background: transparent;
+      border: 1px solid var(--accent);
+      border-radius: 5px;
+      padding: 7px 14px;
+      cursor: pointer;
+      font-family: 'Roboto', sans-serif;
+      text-decoration: none;
+      transition: background 0.12s;
+    }
+
+    .mk-nav-prev:hover,
+    .mk-nav-next:hover {
+      background: var(--accent-light);
+    }
+
+    /* ── Search bar ── */
+    .mk-search {
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mk-search input {
+      width: 100%;
+      padding: 6px 10px 6px 32px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      font-size: 12px;
+      font-family: 'Roboto', sans-serif;
+      color: var(--text-primary);
+      background: var(--bg-secondary);
+      outline: none;
+    }
+
+    .mk-search input:focus {
+      border-color: var(--accent);
+      background: #fff;
+    }
+
+    .mk-search-wrap {
+      position: relative;
+    }
+
+    .mk-search-wrap i {
+      position: absolute;
+      left: 9px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      color: var(--text-tertiary);
+      pointer-events: none;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .mk-toc { display: none; }
+    }
+
+    @media (max-width: 640px) {
+      .mk-nav { display: none; }
+      .mk-main { margin-left: 0; }
+      .mk-article { padding: 20px 16px; }
+      .mk-feature-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Sidebar ── -->
+<nav class="mk-nav">
+  <div class="mk-nav-logo">
+    <i class="ti ti-lock-open"></i>
+    <div class="mk-nav-logo-text">
+      <div class="title">ALogin</div>
+      <div class="version">v1.0.0 · docs</div>
+    </div>
+  </div>
+
+  <div class="mk-search">
+    <div class="mk-search-wrap">
+      <i class="ti ti-search"></i>
+      <input type="text" placeholder="Search docs…" />
+    </div>
+  </div>
+
+  <div class="mk-nav-section">Getting started</div>
+  <a class="mk-nav-item active" onclick="showPage('overview', this)"><i class="ti ti-home"></i> Overview</a>
+  <a class="mk-nav-item" onclick="showPage('install', this)"><i class="ti ti-download"></i> Installation</a>
+  <a class="mk-nav-item" onclick="showPage('quickstart', this)"><i class="ti ti-player-play"></i> Quick start</a>
+
+  <div class="mk-nav-section">Reference</div>
+  <a class="mk-nav-item" onclick="showPage('api', this)"><i class="ti ti-code"></i> API reference</a>
+  <a class="mk-nav-item" onclick="showPage('security', this)"><i class="ti ti-shield"></i> Security</a>
+  <a class="mk-nav-item" onclick="showPage('changelog', this)"><i class="ti ti-history"></i> Changelog</a>
+
+  <div class="mk-nav-section">Project</div>
+  <a class="mk-nav-item" href="https://github.com/ADEEP13/alogin" target="_blank"><i class="ti ti-brand-github"></i> GitHub</a>
+  <a class="mk-nav-item" href="https://pypi.org/project/alogin/" target="_blank"><i class="ti ti-package"></i> PyPI</a>
+</nav>
+
+<!-- ── Main ── -->
+<div class="mk-main">
+
+  <!-- Topbar -->
+  <div class="mk-topbar">
+    <div class="mk-breadcrumb">
+      <span>ALogin</span>
+      <span class="sep"><i class="ti ti-chevron-right" style="font-size:11px;vertical-align:-1px"></i></span>
+      <span class="current" id="breadcrumb-current">Overview</span>
+    </div>
+    <div class="mk-topbar-actions">
+      <a class="mk-btn" href="https://github.com/ADEEP13/alogin" target="_blank"><i class="ti ti-brand-github"></i> GitHub</a>
+      <a class="mk-btn primary" onclick="showPage('install', null)"><i class="ti ti-download"></i> Install</a>
+    </div>
+  </div>
+
+  <div class="mk-body">
+    <!-- Article -->
+    <article class="mk-article">
+
+      <!-- Overview -->
+      <div id="page-overview" class="page visible">
+        <h1 class="mk-page-title">ALogin</h1>
+        <p class="mk-page-sub">Lightweight Python authentication library with SHA-256 hashing and a zero-dependency JSON user store.</p>
+
+        <div class="mk-badges">
+          <span class="mk-badge blue">Python 3.6+</span>
+          <span class="mk-badge green">pip install alogin</span>
+          <span class="mk-badge amber">MIT License</span>
+        </div>
+
+        <div class="mk-admonition info">
+          <i class="ti ti-info-circle"></i>
+          <div>ALogin provides simple, secure account creation and login for Python CLI tools and scripts — no external dependencies required.</div>
+        </div>
+
+        <h2 class="mk-h2"><i class="ti ti-sparkles"></i> Features</h2>
+        <div class="mk-feature-grid">
+          <div class="mk-feature-card">
+            <i class="ti ti-user-plus"></i>
+            <div>
+              <div class="mk-feature-title">Account creation</div>
+              <div class="mk-feature-desc">Register users with email validation and duplicate protection.</div>
+            </div>
+          </div>
+          <div class="mk-feature-card">
+            <i class="ti ti-login"></i>
+            <div>
+              <div class="mk-feature-title">Login authentication</div>
+              <div class="mk-feature-desc">Authenticate existing accounts with hashed password comparison.</div>
+            </div>
+          </div>
+          <div class="mk-feature-card">
+            <i class="ti ti-lock"></i>
+            <div>
+              <div class="mk-feature-title">SHA-256 hashing</div>
+              <div class="mk-feature-desc">Passwords are never stored or transmitted in plain text.</div>
+            </div>
+          </div>
+          <div class="mk-feature-card">
+            <i class="ti ti-database"></i>
+            <div>
+              <div class="mk-feature-title">JSON user database</div>
+              <div class="mk-feature-desc">Flat-file storage with zero external dependencies.</div>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="mk-h2"><i class="ti ti-rocket"></i> Quickest way to start</h2>
+        <div class="mk-code-block">
+          <div class="mk-code-header">
+            <span class="mk-code-lang">bash</span>
+            <button class="mk-copy-btn" onclick="copyBlock(this)"><i class="ti ti-copy"></i> Copy</button>
+          </div>
+          <pre class="mk-code-body">pip install alogin</pre>
+        </div>
+        <div class="mk-code-block">
+          <div class="mk-code-header">
+            <span class="mk-code-lang">python</span>
+            <button class="mk-copy-btn" onclick="copyBlock(this)"><i class="ti ti-copy"></i> Copy</button>
+          </div>
+          <pre class="mk-code-body"><span class="kw">from</span> alogin <span class="kw">import</span> <span class="fn">create_account</span>, <span class="fn">login_account</span>
+<span class="fn">create_account</span>()
+<span class="fn">login_account</span>()</pre>
+        </div>
+
+        <div class="mk-admonition tip">
+          <i class="ti ti-arrow-right"></i>
+          <div>Continue to <a href="#" onclick="showPage('install',null);return false;" style="color:#2e7d32;font-weight:500">Installation →</a> for full setup instructions.</div>
+        </div>
+
+        <div class="mk-footer-nav">
+          <span></span>
+          <button class="mk-nav-next" onclick="showPage('install',null)">Installation <i class="ti ti-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- Installation -->
+      <div id="page-install" class="page">
+        <h1 class="mk-page-title">Installation</h1>
+        <p class="mk-page-sub">Install ALogin from PyPI — no external dependencies needed.</p>
+
+        <h2 class="mk-h2"><i class="ti ti-list-check"></i> Requirements</h2>
+        <p class="mk-p">Python <strong>3.6</strong> or higher. ALogin only uses modules from the standard library (<code>hashlib</code>, <code>json</code>, <code>getpass</code>).</p>
+
+        <h2 class="mk-h2"><i class="ti ti-terminal"></i> Install via pip</h2>
+        <div class="mk-code-block">
+          <div class="mk-code-header">
+            <span class="mk-code-lang">bash</span>
+            <button class="mk-copy-btn" onclick="copyBlock(this)"><i class="ti ti-copy"></i> Copy</button>
+          </div>
+          <pre class="mk-code-body">pip install alogin</pre>
+        </div>
+
+        <h2 class="mk-h2"><i class="ti ti-brand-github"></i> Install from source</h2>
+        <div class="mk-code-block">
+          <div class="mk-code-header">
+            <span class="mk-code-lang">bash</span>
+            <button class="mk-copy-btn" onclick="copyBlock(this)"><i class="ti ti-copy"></i> Copy</button>
+          </div>
+          <pre class="mk-code-body">git clone https://github.com/ADEEP13/alogin.git
+cd alogin
+pip install -e .</pre>
+        </div>
+
+        <h2 class="mk-h2"><i class="ti ti-check"></i> Verify installation</h2>
+        <div class="mk-code-block">
+          <div class="mk-code-header">
+            <span class="mk-code-lang">bash</span>
+            <button class="mk-copy-btn" onclick="copyBlock(this)"><i class="ti ti-copy"></i> Copy</button>
+          </div>
+          <pre class="mk-code-body">python -c <span class="str">"import alogin; print('ALogin installed successfully')"</span></pre>
+        </div>
+
+        <div class="mk-admonition tip">
+          <i class="ti ti-bulb"></i>
+          <div>Using a virtual environment? Run <code>python -m venv venv && source venv/bin/activate</code> before installing.</div>
+        </div>
+
+        <div class="mk-footer-nav">
+          <button class="mk-nav-prev" onclick="showPage('overview',null)"><i class="ti ti-arrow-left"></i> Overview</button>
+          <button class="mk-nav-next" onclick="showPage('quickstart',null)">Quick start <i class="ti ti-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- Quick start -->
+      <div id="page-quickstart" class="page">
+        <h1 class="mk-page-title">Quick start</h1>
+        <p class="mk-page-sub">Create an account and authenticate a user in under ten lines of Python.</p>
+
+        <h2 class="mk-h2"><i class="ti ti-user-plus"></i> Step 1 — create an account</h2>
+        <p class="mk-p">Call <code>create_account()</code>. It will prompt for an email address and password, hash the password, and write the record to <code>users.json</code>.</p>
+        <div class="mk-code-block">
+          <div class="mk-code-header">
+            <span class="mk-code-lang">python</span>
+            <button class="mk-copy-btn" onclick="copyBlock(this)"><i class="ti ti-copy"></i> Copy</button>
+          </div>
+          <pre class="mk-code-body"><span class="kw">from</span> alogin <span class="kw">import</span> <span class="fn">create_account</span>
+
+<span class="fn">create_account</span>()
+<span class="cm"># → Enter email: user@example.com
+# → Enter password: ********
+# → Account created!</span></pre>
+        </div>
+
+        <h2 class="mk-h2"><i class="ti ti-login"></i> Step 2 — log in</h2>
+        <p class="mk-p">Call <code>login_account()</code>. It prompts for credentials, hashes the input, and compares it against the stored hash. Returns <code>True</code> on success.</p>
+        <div class="mk-code-block">
+          <div class="mk-code-header">
+            <span class="mk-code-lang">python</span>
+            <button class="mk-copy-btn" onclick="copyBlock(this)"><i class="ti ti-copy"></i> Copy</button>
+          </div>
+          <pre class="mk-code-body"><span class="kw">from</span> alogin <span class="kw">import</span> <span class="fn">login_account</span>
+
+result = <span class="fn">login_account</span>()
+<span class="kw">if</span> result:
+    <span class="fn">print</span>(<span class="str">"Welcome back!"</span>)</pre>
+        </div>
+
+        <h2 class="mk-h2"><i class="ti ti-code"></i> Full example</h2>
+        <div class="mk-code-block">
+          <div class="mk-code-header">
+            <span class="mk-code-lang">python</span>
+            <button class="mk-copy-btn" onclick="copyBlock(this)"><i class="ti ti-copy"></i> Copy</button>
+          </div>
+          <pre class="mk-code-body"><span class="kw">from</span> alogin <span class="kw">import</span> <span class="fn">create_account</span>, <span class="fn">login_account</span>
+
+<span class="cm"># Register a new user</span>
+<span class="fn">create_account</span>()
+
+<span class="cm"># Authenticate the user</span>
+authenticated = <span class="fn">login_account</span>()
+
+<span class="kw">if</span> authenticated:
+    <span class="fn">print</span>(<span class="str">"Access granted."</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">"Access denied."</span>)</pre>
+        </div>
+
+        <div class="mk-footer-nav">
+          <button class="mk-nav-prev" onclick="showPage('install',null)"><i class="ti ti-arrow-left"></i> Installation</button>
+          <button class="mk-nav-next" onclick="showPage('api',null)">API reference <i class="ti ti-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- API Reference -->
+      <div id="page-api" class="page">
+        <h1 class="mk-page-title">API reference</h1>
+        <p class="mk-page-sub">Full reference for all public functions exported by ALogin.</p>
+
+        <div class="mk-api-block">
+          <div class="mk-api-header">create_account() → None</div>
+          <div class="mk-api-body">
+            <p class="mk-api-desc">Interactively prompts for a new user's email and password. Hashes the password with SHA-256 and writes the record to <code>users.json</code>. Raises a <code>ValueError</code> if the email is already registered.</p>
+            <table class="mk-api-table">
+              <thead>
+                <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr><td colspan="3" style="color:var(--text-tertiary);font-style:italic">No parameters — prompts via stdin.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="mk-code-block">
+          <div class="mk-code-header">
+            <span class="mk-code-lang">python</span>
+            <button class="mk-copy-btn" onclick="copyBlock(this)"><i class="ti ti-copy"></i> Copy</button>
+          </div>
+          <pre class="mk-code-body"><span class="kw">from</span> alogin <span class="kw">import</span> <span class="fn">create_account</span>
+<span class="fn">create_account</span>()  <span class="cm"># returns None</span></pre>
+        </div>
+
+        <div class="mk-api-block">
+          <div class="mk-api-header">login_account() → bool</div>
+          <div class="mk-api-body">
+            <p class="mk-api-desc">Prompts for email and password. Hashes the input and compares it against the stored SHA-256 hash. Returns <code>True</code> if credentials match, <code>False</code> otherwise.</p>
+            <table class="mk-api-table">
+              <thead>
+                <tr><th>Returns</th><th>Type</th><th>Description</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>result</td><td>bool</td><td><code>True</code> on successful authentication, <code>False</code> on failure.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="mk-code-block">
+          <div class="mk-code-header">
+            <span class="mk-code-lang">python</span>
+            <button class="mk-copy-btn" onclick="copyBlock(this)"><i class="ti ti-copy"></i> Copy</button>
+          </div>
+          <pre class="mk-code-body">result = <span class="fn">login_account</span>()  <span class="cm"># returns True or False</span></pre>
+        </div>
+
+        <div class="mk-footer-nav">
+          <button class="mk-nav-prev" onclick="showPage('quickstart',null)"><i class="ti ti-arrow-left"></i> Quick start</button>
+          <button class="mk-nav-next" onclick="showPage('security',null)">Security <i class="ti ti-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- Security -->
+      <div id="page-security" class="page">
+        <h1 class="mk-page-title">Security</h1>
+        <p class="mk-page-sub">How ALogin protects user credentials and what to be aware of in production.</p>
+
+        <div class="mk-admonition warning">
+          <i class="ti ti-alert-triangle"></i>
+          <div>ALogin is designed for educational use and prototyping. For production systems handling sensitive data, use a dedicated auth service (e.g. Auth0, Supabase Auth, or Django's auth framework).</div>
+        </div>
+
+        <h2 class="mk-h2"><i class="ti ti-lock"></i> Password hashing</h2>
+        <p class="mk-p">All passwords are hashed using <strong>SHA-256</strong> via Python's <code>hashlib</code> module before being written to disk. Plain-text passwords are never stored or logged.</p>
+
+        <h2 class="mk-h2"><i class="ti ti-mail"></i> Duplicate email protection</h2>
+        <p class="mk-p">Each email address can only be registered once. Attempting to create a second account with the same email raises a <code>ValueError</code> before any write occurs.</p>
+
+        <h2 class="mk-h2"><i class="ti ti-database"></i> JSON storage</h2>
+        <p class="mk-p">User records are stored in a local <code>users.json</code> file. Ensure this file is excluded from version control.</p>
+        <div class="mk-code-block">
+          <div class="mk-code-header">
+            <span class="mk-code-lang">.gitignore</span>
+            <button class="mk-copy-btn" onclick="copyBlock(this)"><i class="ti ti-copy"></i> Copy</button>
+          </div>
+          <pre class="mk-code-body">users.json</pre>
+        </div>
+
+        <h2 class="mk-h2"><i class="ti ti-alert-circle"></i> Known limitations</h2>
+        <p class="mk-p">SHA-256 without salting is vulnerable to rainbow table attacks. For stronger security, use <code>bcrypt</code> or <code>argon2</code> in your own implementation. ALogin is a teaching tool, not a hardened auth system.</p>
+
+        <div class="mk-footer-nav">
+          <button class="mk-nav-prev" onclick="showPage('api',null)"><i class="ti ti-arrow-left"></i> API reference</button>
+          <button class="mk-nav-next" onclick="showPage('changelog',null)">Changelog <i class="ti ti-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- Changelog -->
+      <div id="page-changelog" class="page">
+        <h1 class="mk-page-title">Changelog</h1>
+        <p class="mk-page-sub">Release history for ALogin.</p>
+
+        <h2 class="mk-h2"><i class="ti ti-tag"></i> v1.0.0</h2>
+        <p class="mk-p" style="color:var(--text-tertiary);font-size:12px;margin-bottom:8px">Initial release</p>
+        <ul style="font-size:13px;color:var(--text-secondary);line-height:2;padding-left:20px">
+          <li>Account creation with SHA-256 hashed passwords</li>
+          <li>Login authentication via stored hash comparison</li>
+          <li>Duplicate email protection</li>
+          <li>JSON flat-file user database</li>
+          <li>Zero external dependencies</li>
+        </ul>
+
+        <div class="mk-footer-nav">
+          <button class="mk-nav-prev" onclick="showPage('security',null)"><i class="ti ti-arrow-left"></i> Security</button>
+          <span></span>
+        </div>
+      </div>
+
+    </article>
+
+    <!-- TOC -->
+    <aside class="mk-toc">
+      <div class="mk-toc-title">On this page</div>
+      <div id="toc-container"></div>
+    </aside>
+  </div>
+</div>
+
+<script>
+  const tocMap = {
+    overview:   ['Features', 'Quickest way to start'],
+    install:    ['Requirements', 'Install via pip', 'Install from source', 'Verify installation'],
+    quickstart: ['Step 1 — create an account', 'Step 2 — log in', 'Full example'],
+    api:        ['create_account()', 'login_account()'],
+    security:   ['Password hashing', 'Duplicate email protection', 'JSON storage', 'Known limitations'],
+    changelog:  ['v1.0.0'],
+  };
+
+  const breadcrumbLabels = {
+    overview: 'Overview', install: 'Installation', quickstart: 'Quick start',
+    api: 'API reference', security: 'Security', changelog: 'Changelog',
+  };
+
+  const pageOrder = ['overview', 'install', 'quickstart', 'api', 'security', 'changelog'];
+
+  function showPage(id, navEl) {
+    // Hide all pages
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('visible'));
+    document.getElementById('page-' + id).classList.add('visible');
+
+    // Update nav active state
+    document.querySelectorAll('.mk-nav-item').forEach(el => el.classList.remove('active'));
+    if (navEl) navEl.classList.add('active');
+    else {
+      document.querySelectorAll('.mk-nav-item').forEach(el => {
+        if (el.textContent.trim() === breadcrumbLabels[id]) el.classList.add('active');
+      });
+    }
+
+    // Breadcrumb
+    document.getElementById('breadcrumb-current').textContent = breadcrumbLabels[id];
+
+    // TOC
+    const toc = document.getElementById('toc-container');
+    toc.innerHTML = (tocMap[id] || []).map((t, i) =>
+      `<a class="mk-toc-link${i === 0 ? ' active' : ''}" href="#">${t}</a>`
+    ).join('');
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function copyBlock(btn) {
+    const pre = btn.closest('.mk-code-block').querySelector('pre');
+    navigator.clipboard.writeText(pre.innerText).then(() => {
+      const orig = btn.innerHTML;
+      btn.innerHTML = '<i class="ti ti-check"></i> Copied';
+      setTimeout(() => { btn.innerHTML = orig; }, 1600);
+    });
+  }
+</script>
+</body>
+</html>
