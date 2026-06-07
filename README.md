@@ -1,17 +1,24 @@
 # ALogin
 
 ![PyPI](https://img.shields.io/pypi/v/alogin)
-[![PyPI Downloads](https://static.pepy.tech/personalized-badge/alogin?period=total\&units=INTERNATIONAL_SYSTEM\&left_color=BLACK\&right_color=GREEN\&left_text=downloads)](https://pepy.tech/projects/alogin)
+[![PyPI Downloads](https://static.pepy.tech/personalized-badge/alogin?period=total&units=INTERNATIONAL_SYSTEM&left_color=BLACK&right_color=GREEN&left_text=downloads)](https://pepy.tech/projects/alogin)
 ![GitHub release](https://img.shields.io/github/v/release/ADEEP13/alogin)
 ![Python](https://img.shields.io/pypi/pyversions/alogin)
 ![GitHub last commit](https://img.shields.io/github/last-commit/ADEEP13/alogin)
 ![GitHub Repo stars](https://img.shields.io/github/stars/ADEEP13/alogin)
 ![License](https://img.shields.io/github/license/ADEEP13/alogin)
 
+Simple Python authentication for small projects.
 
-A simple Python authentication library that lets you add account creation and login functionality to your projects in minutes.
+Create accounts, authenticate users, and securely store credentials with just a few lines of code.
 
-No databases. No configuration. Just install and start building.
+## Why ALogin?
+
+- Lightweight
+- Secure password hashing
+- JSON-based user storage
+- Beginner-friendly
+- Perfect for prototypes and hackathons
 
 ## Installation
 
@@ -28,14 +35,10 @@ create_account()
 login_account()
 ```
 
-## Why ALogin?
-
-* Lightweight
-* Beginner-friendly
-* Secure password hashing
-* JSON-based user storage
-* Perfect for learning, prototypes, and hackathons
-
 📖 **Documentation:** https://adeep13.github.io/alogin/
 
 ⭐ If you find ALogin useful, consider starring the repository.
+
+## License
+
+MIT License
