@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://adeep13.github.io/alogin/sitemap.xml
