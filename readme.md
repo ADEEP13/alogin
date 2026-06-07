@@ -7,6 +7,7 @@
 ![GitHub Repo stars](https://img.shields.io/github/stars/ADEEP13/alogin)
 [![PyPI Downloads](https://static.pepy.tech/personalized-badge/alogin?period=total\&units=INTERNATIONAL_SYSTEM\&left_color=BLACK\&right_color=GREEN\&left_text=downloads)](https://pepy.tech/projects/alogin)
 ![GitHub release](https://img.shields.io/github/v/release/ADEEP13/alogin)
+
 📖 **Documentation:** https://adeep13.github.io/alogin/
 
 ALogin is a lightweight Python authentication library that provides simple account creation and login functionality using a local JSON database.
