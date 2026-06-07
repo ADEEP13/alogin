@@ -1,12 +1,13 @@
 # ALogin
 
 ![PyPI](https://img.shields.io/pypi/v/alogin)
-![Python](https://img.shields.io/pypi/pyversions/alogin)
-![License](https://img.shields.io/github/license/ADEEP13/alogin)
+[![PyPI Downloads](https://static.pepy.tech/personalized-badge/alogin?period=total\&units=INTERNATIONAL_SYSTEM\&left_color=BLACK\&right_color=GREEN\&left_text=downloads)](https://pepy.tech/projects/alogin)
 ![GitHub release](https://img.shields.io/github/v/release/ADEEP13/alogin)
+![Python](https://img.shields.io/pypi/pyversions/alogin)
 ![GitHub last commit](https://img.shields.io/github/last-commit/ADEEP13/alogin)
 ![GitHub Repo stars](https://img.shields.io/github/stars/ADEEP13/alogin)
-[![PyPI Downloads](https://static.pepy.tech/personalized-badge/alogin?period=total\&units=INTERNATIONAL_SYSTEM\&left_color=BLACK\&right_color=GREEN\&left_text=downloads)](https://pepy.tech/projects/alogin)
+![License](https://img.shields.io/github/license/ADEEP13/alogin)
+
 
 A simple Python authentication library that lets you add account creation and login functionality to your projects in minutes.
 
